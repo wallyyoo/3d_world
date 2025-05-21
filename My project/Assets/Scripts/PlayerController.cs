@@ -67,7 +67,6 @@ public class PlayerController : MonoBehaviour
       }
    }
 
-
    public void OnJumpInput(InputAction.CallbackContext context)
    {
     //  if (context.phase == InputActionPhase.Started && IsGrounded())
@@ -81,7 +80,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
             Debug.Log("jump force applied. velocity" + rb.velocity);
          }
-         
+      
       }
    }
    public void OnMove(InputAction.CallbackContext context)
@@ -121,16 +120,16 @@ public class PlayerController : MonoBehaviour
       Ray[] rays = new Ray[4]
       {
          new Ray(transform.position + (transform.forward * 0.3f) + (transform.up * 0.01f), Vector3.down),
-         new Ray(transform.position + (-transform.forward * 0.5f) + (transform.up * 0.01f), Vector3.down),
-         new Ray(transform.position + (transform.right * 0.5f) + (transform.up * 0.01f), Vector3.down),
-         new Ray(transform.position + (-transform.right * 0.5f) + (transform.up * 0.01f), Vector3.down)
+         new Ray(transform.position + (-transform.forward * 0.3f) + (transform.up * 0.01f), Vector3.down),
+         new Ray(transform.position + (transform.right * 0.3f) + (transform.up * 0.01f), Vector3.down),
+         new Ray(transform.position + (-transform.right * 0.3f) + (transform.up * 0.01f), Vector3.down)
       };
 
       for (int i = 0; i < rays.Length; i++)
       {
          
          Debug.DrawRay(rays[i].origin, rays[i].direction * 0.5f, Color.red);
-         if (Physics.Raycast(rays[i], 5f, groundLayerMask))
+         if (Physics.Raycast(rays[i], 1.5f, groundLayerMask))
          {
             return true;  
          }

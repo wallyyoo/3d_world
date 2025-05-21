@@ -11,13 +11,18 @@ public class CharacterManager : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = new GameObject("CharacterManager").AddComponent<CharacterManager>();
+                _instance = FindObjectOfType<CharacterManager>();
+                if (_instance == null)
+                {
+                    GameObject go = new GameObject("CharacterManager");
+                    _instance = go.AddComponent<CharacterManager>();
+                }
             }
             return _instance;
         }
     }
 
-    public Player _player;
+    private Player _player;
     public Player Player    
     {
            get{return _player;}
