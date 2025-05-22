@@ -9,6 +9,7 @@ public class Inventory : MonoBehaviour
    
    public GameObject inventorySlot;
    public Transform slotPanel;
+   public Transform dropposition;
 
    public TextMeshProUGUI selectedItemName;
    public TextMeshProUGUI selectedItemDescription;
@@ -27,6 +28,8 @@ public class Inventory : MonoBehaviour
    {
       controller = CharacterManager.Instance.Player.controller;
       condition = CharacterManager.Instance.Player.condition;
+      dropposition = CharacterManager.Instance.Player.dropPosition;
+      
       controller.inventory += ToggleInventory;
       
       CharacterManager.Instance.Player.addItem += AddItem;
@@ -132,18 +135,83 @@ public class Inventory : MonoBehaviour
    {
       for (int i = 0; i < slots.Length; i++)
       {
-         if (slots[i].item == data && slots[i].quantity > 0)
+         if (slots[i].item == data && slots[i].quantity < data.maxStack)
+         {
+            return slots[i];
+         }
       }
       return null;
    }
 
    ItemSlot GetEmptySlot()
    {
+      for (int i = 0; i < slots.Length; i++)
+      {
+         if (slots[i].item == null)
+         {
+            return slots[i];
+         }
+      }
       return null;
    }
 
    void ThrowItem(ItemData data)
    {
-      
+      Instantiate(data.dropPrefab, dropposition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
    }
+
+   private ItemSlot selectedSlot;
+
+   public void SelectItem(ItemSlot slot)
+   {
+      selectedSlot = slot;
+      
+      selectedItemName.text = selectedSlot.item.ItemName;
+      selectedItemDescription.text = selectedSlot.item.ItemDescription;
+
+      invenUI_Health.text = " ";
+      inven_HealthVelue.text = " ";
+      invenUI_Stamina.text = " ";
+      inven_StaminaVelue.text = " ";
+
+      foreach (var con in slot.item.consumables)
+      {
+         if (con.Type == ConsumableType.Health)
+         {
+            invenUI_Health.text = "채력 회복";
+            inven_HealthVelue.text = con.value.ToString();
+         }
+         else if (con.Type == ConsumableType.Stamina)
+         {
+            invenUI_Stamina.text = "스테미나 회복";
+            inven_StaminaVelue.text = con.value.ToString();
+         }
+      }
+      
+      useButton.SetActive(slot.item.canConsume);
+      dropButton.SetActive(true);
+   }
+
+   public void UseItem()
+   {
+      if(selectedSlot == null || !selectedSlot.item.canConsume)return;
+
+      foreach (var con in selectedSlot.item.consumables)
+      {
+         if (con.Type == ConsumableType.Health)
+            condition.HealHeath(con.value);
+         else if (con.Type == ConsumableType.Stamina)
+            condition.HealStamina(con.value);
+      }
+      
+      selectedSlot.quantity--;
+      if (selectedSlot.quantity <= 0)
+      {
+         selectedSlot.Clear();
+      }
+      UpdateUI();
+      ClearSelctedItemSlot();
+   }
+
 }
+

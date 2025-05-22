@@ -240,6 +240,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28b614bfbc587fb4ab2a2c4247ab4df7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  button: {fileID: 0}
+  icon: {fileID: 8956370479244103473}
+  quantityText: {fileID: 3739267412982725058}
+  inventory: {fileID: 0}
+  index: 0
+  quantity: 0
 --- !u!1 &7925677874061751279
 GameObject:
   m_ObjectHideFlags: 0
