@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,7 +22,8 @@ public class PlayerController : MonoBehaviour
    public float lookSensitivity;
 
    private Vector2 mouseDelta;
-   
+
+   public Action inventory;
    [HideInInspector]
    public bool canLook = true;
    private Rigidbody rb;
@@ -137,8 +139,17 @@ public class PlayerController : MonoBehaviour
       return false;
    }
 
-   public void ToggleCursor(bool toggle)
+   public void OnInventory(InputAction.CallbackContext context)
    {
+      if (context.phase == InputActionPhase.Started)
+      {
+         inventory?.Invoke();
+         ToggleCursor();
+      }
+   }
+   public void ToggleCursor()
+   {
+      bool toggle = Cursor.lockState == CursorLockMode.Locked;
       Cursor.lockState = toggle ? CursorLockMode.None : CursorLockMode.Locked;
       canLook = !toggle;
    }
