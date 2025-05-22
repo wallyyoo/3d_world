@@ -14,6 +14,7 @@ public class Obstacle : MonoBehaviour
         {
             damageable.TakePhysicalDamage(damage) ;
         }
+        
     }
     
 }
