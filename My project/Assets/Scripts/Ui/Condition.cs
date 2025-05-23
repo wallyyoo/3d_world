@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +18,7 @@ public class Condition : MonoBehaviour
     void Update()
     {
         if( uiBar != null)
-        uiBar.fillAmount = GetPercentage();
+            uiBar.fillAmount = GetPercentage();
     }
 
     float GetPercentage()

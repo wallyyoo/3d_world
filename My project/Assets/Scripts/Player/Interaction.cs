@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -45,13 +44,13 @@ public class Interaction : MonoBehaviour
            
                 if (curInteractable != null)
                 {
-                Debug.Log("[인터랙션] IInteractable 감지 성공");
+             
                 SetText();
                 }
                 
                 else
                 {   
-                Debug.LogWarning("[인터랙션 실패] IInteractable 감지 실패");
+                
                 text.gameObject.SetActive(false);
                 }
             }

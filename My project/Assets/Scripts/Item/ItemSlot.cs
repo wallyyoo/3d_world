@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,23 +16,14 @@ public class ItemSlot : MonoBehaviour
 
     public int index;
     public int quantity;
-    
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnEnable()
     {
         if(outline != null)
         outline.enabled = false;
     }
 
+    
     public void Set()
     {
         icon.gameObject.SetActive(true);
@@ -55,6 +45,7 @@ public class ItemSlot : MonoBehaviour
 
     public void OnClick()
     {
+        Debug.Log("ItemSlot Clicked");
         inventory.SelectItem(this);
     }
 }
