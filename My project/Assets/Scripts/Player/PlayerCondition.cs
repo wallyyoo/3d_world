@@ -13,6 +13,11 @@ public class PlayerCondition : MonoBehaviour, IDamageable
     Condition stamina{get{ return uiCondition.stamina;}}
 
     public Action onTakeDamage;
+
+    public float GetCurStamina()
+    {
+        return stamina.curValue;
+    }
     
 
     void Update()
@@ -43,5 +48,10 @@ public class PlayerCondition : MonoBehaviour, IDamageable
     {
         health.Subtract(damage);    
         onTakeDamage?.Invoke();
+    }
+
+    public void UseStamina(float amount)
+    {
+        stamina.Subtract(amount);
     }
 }

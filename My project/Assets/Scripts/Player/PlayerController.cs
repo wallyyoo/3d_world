@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
    private Vector2 curMovementInput;
    public float jumpPower;
    public LayerMask groundLayerMask;
-
+   public float jumpStaminaCost = 10f;
+   
    [Header("Look")]
    public Transform cameraContainer;
    public float minXLook;
@@ -68,18 +69,20 @@ public class PlayerController : MonoBehaviour
 
    public void OnJumpInput(InputAction.CallbackContext context)
    {
-    //  if (context.phase == InputActionPhase.Started && IsGrounded())
+   
     if (context.phase == InputActionPhase.Started)
       {
-         Debug.Log("Jump pressed. Grounded :" +IsGrounded());
-         //rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-         if (IsGrounded())
+       
+         if (IsGrounded() && CharacterManager.Instance.Player.condition != null)
          {
-            
-        rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
-            Debug.Log("jump force applied. velocity" + rb.velocity);
+            var condition = CharacterManager.Instance.Player.condition;
+
+            if (condition.GetCurStamina() >= jumpStaminaCost)
+            {
+               rb.AddForce(Vector2.up * jumpPower, ForceMode.Impulse); 
+               condition.UseStamina(jumpStaminaCost);
+            }
          }
-      
       }
    }
    public void OnMove(InputAction.CallbackContext context)
