@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d3de0b9b0e7dd44e8d75c47704c72b8, type: 3}
+  m_Name: Item_Soda
+  m_EditorClassIdentifier: 
+  ItemName: "\uC74C\uB8CC\uC218"
+  ItemDescription: "\uC2A4\uD14C\uBBF8\uB098\uB97C \uCC44\uC6CC\uC90D\uB2C8\uB2E4"
+  ItemIcon: {fileID: 21300000, guid: 43046426625693b41b1c2ee199d4c15a, type: 3}
+  ItemType: 0
+  dropPrefab: {fileID: 3507598363704124615, guid: 24757e5cafc98034890d21d8d944bc43, type: 3}
+  canStack: 1
+  maxStack: 12
+  consumables:
+  - Type: 1
+    value: 20
+  canConsume: 1
